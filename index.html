@@ -28,28 +28,26 @@
         body {
             font-family: var(--fuente-texto);
             color: var(--texto-oscuro);
-            background: linear-gradient(-45deg, #fdfbfb, var(--verde-muy-claro), #ffffff, var(--verde-claro));
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            /* IMAGEN DE FONDO FIJA Y VISIBLE EN TODO MOMENTO */
+            background-image: url('assets/fondo.jpg');
+            background-color: var(--verde-muy-claro);
+            background-position: center;
+            background-size: cover; 
+            background-attachment: fixed;
+            background-repeat: no-repeat;
             overflow-x: hidden;
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         /* --- EFECTOS Y DESTELLOS --- */
         #particles-js { position: fixed; width: 100vw; height: 100vh; top: 0; left: 0; z-index: -1; pointer-events: none; }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(189, 195, 199, 0.4);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(189, 195, 199, 0.5);
             border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(165, 214, 167, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(165, 214, 167, 0.25);
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
         
@@ -58,24 +56,52 @@
             box-shadow: 0 12px 40px 0 rgba(165, 214, 167, 0.4);
         }
 
-        /* --- SECCIÓN HERO SIN OVERLAY Y SIN EXTENDER --- */
+        /* --- SECCIÓN HERO (SIN CAJA, MAYOR IMPACTO) --- */
         .hero-container {
             height: 100vh;
             width: 100%;
-            background: url('assets/fondo.jpg');
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-color: var(--verde-muy-claro); /* Fondo suave por si la imagen no cubre todo */
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             position: relative;
+            flex-direction: column;
+            background: transparent;
         }
 
-        /* --- SOBRE --- */
-        #envelope-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: radial-gradient(circle, #ffffff 0%, var(--verde-claro) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 1.5s ease; }
+        .hero-text-wrapper {
+            z-index: 2;
+            padding: 20px;
+        }
+
+        .hero-subtitle {
+            letter-spacing: 6px; 
+            color: var(--texto-oscuro); 
+            margin-bottom: 10px; 
+            font-weight: 600; 
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        .hero-title {
+            font-family: var(--fuente-nombres); 
+            font-size: 7.5rem; 
+            color: var(--verde-acento);
+            line-height: 1.1;
+            text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1), 0 0 25px rgba(255, 255, 255, 1);
+        }
+
+        .hero-date {
+            font-weight: 700; 
+            margin-top: 15px; 
+            letter-spacing: 3px; 
+            color: var(--texto-oscuro);
+            font-size: 1.4rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        /* --- SOBRE (Fondo translúcido para ver el fondo general) --- */
+        #envelope-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(240, 248, 241, 0.3); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 1.5s ease; }
         .envelope-wrapper { position: relative; width: 320px; height: 220px; cursor: pointer; animation: float 3s ease-in-out infinite; perspective: 1000px; }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
         .envelope-body { position: absolute; bottom: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--plata-claro), var(--plata)); border-radius: 10px; z-index: 2; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
@@ -90,8 +116,7 @@
         /* --- CONTENIDO --- */
         #main-content { display: none; opacity: 0; transition: opacity 2s ease-in; position: relative; z-index: 10; }
         section { padding: 80px 20px; text-align: center; max-width: 1000px; margin: 0 auto; }
-        h1 { font-family: var(--fuente-nombres); font-size: 5.5rem; color: var(--texto-oscuro); text-shadow: 0 0 15px rgba(255,255,255,0.8); }
-        h2 { font-family: var(--fuente-titulos); font-size: 2.8rem; margin-bottom: 30px; font-style: italic; color: var(--plata-oscuro); }
+        h2 { font-family: var(--fuente-titulos); font-size: 2.8rem; margin-bottom: 30px; font-style: italic; color: var(--texto-oscuro); text-shadow: 0 0 15px rgba(255,255,255,1); }
 
         /* --- IMÁGENES REPARTIDAS --- */
         .photo-grid {
@@ -141,14 +166,47 @@
         .btn { display: inline-block; padding: 16px 35px; background: linear-gradient(135deg, var(--plata), var(--plata-oscuro)); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; border: none; cursor: pointer; transition: 0.4s; letter-spacing: 1px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(127, 140, 141, 0.4); }
         .btn-whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
-        .btn-calendar { background: linear-gradient(135deg, var(--verde-acento), #81c784); margin-top: 20px; }
+        
+        /* --- WIDGET CALENDARIO --- */
+        .widget-calendario {
+            background: linear-gradient(135deg, var(--verde-acento), #81c784);
+            color: white;
+            padding: 18px 35px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(165, 214, 167, 0.4);
+            transition: all 0.3s ease;
+            margin-top: 35px;
+        }
+        .widget-calendario:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 25px rgba(165, 214, 167, 0.6); }
 
-        .timer-container { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
-        .time-box { padding: 20px; min-width: 90px; border: 1px solid rgba(189, 195, 199, 0.3); text-align: center; background: rgba(255,255,255,0.7); }
-        .time-box span { display: block; font-family: var(--fuente-titulos); font-size: 2.8rem; color: var(--plata-oscuro); }
-        .time-box p { font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; color: var(--texto-oscuro); margin-top: 5px; }
+        /* --- CUENTA ATRÁS EN UN SOLO RENGLÓN --- */
+        .timer-container { 
+            display: flex; 
+            justify-content: center; 
+            gap: 10px; 
+            flex-wrap: nowrap; /* Fuerza un solo renglón */
+            margin-top: 20px; 
+            width: 100%;
+        }
+        .time-box { 
+            padding: 15px 5px; 
+            flex: 1; /* Distribuye el espacio equitativamente */
+            min-width: 0; /* Previene desbordamientos */
+            border: 1px solid rgba(189, 195, 199, 0.3); 
+            text-align: center; 
+            background: rgba(255,255,255,0.85); 
+            border-radius: 12px;
+        }
+        .time-box span { display: block; font-family: var(--fuente-titulos); font-size: 2.5rem; color: var(--plata-oscuro); line-height: 1; }
+        .time-box p { font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; color: var(--texto-oscuro); margin-top: 8px; text-transform: uppercase; }
 
-        .btn-small { display: inline-block; padding: 12px 25px; margin: 5px; background: rgba(255, 255, 255, 0.8); color: var(--texto-oscuro); border: 1px solid var(--plata); border-radius: 50px; text-decoration: none; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: 0.3s; }
+        .btn-small { display: inline-block; padding: 12px 25px; margin: 5px; background: rgba(255, 255, 255, 0.9); color: var(--texto-oscuro); border: 1px solid var(--plata); border-radius: 50px; text-decoration: none; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.3s; }
         .btn-small:hover { background: var(--plata-claro); }
 
         /* --- BOTÓN DE MÚSICA STICKY --- */
@@ -175,8 +233,11 @@
         .reveal.active { opacity: 1; transform: translateY(0) scale(1) translateX(0); }
 
         @media (max-width: 768px) {
-            h1 { font-size: 4rem; }
+            .hero-title { font-size: 4.5rem; }
+            .hero-subtitle { font-size: 1rem; }
             h2 { font-size: 2.2rem; }
+            .time-box span { font-size: 1.6rem; }
+            .time-box p { font-size: 0.65rem; }
             .timeline::before { left: 20px; }
             .timeline-content { width: 85%; margin-left: 50px; text-align: left; }
             .timeline-icon { left: 20px; }
@@ -200,7 +261,7 @@
             <div class="envelope-body"></div>
             <div class="wax-seal">Q</div>
         </div>
-        <div style="margin-top: 40px; letter-spacing: 3px; text-transform: uppercase; font-size: 0.85rem; font-weight: 600; color: var(--plata-oscuro);">Toca para abrir</div>
+        <div style="margin-top: 40px; letter-spacing: 3px; text-transform: uppercase; font-size: 0.9rem; font-weight: 700; color: var(--texto-oscuro); text-shadow: 0 0 10px white;">Toca para abrir</div>
     </div>
 
     <!-- Partículas / Destellos mágicos -->
@@ -208,29 +269,31 @@
 
     <div id="main-content">
         
-        <!-- FOTO 1 - HERO -->
+        <!-- FOTO 1 - HERO SIN CAJA -->
         <section class="hero-container reveal fade-up" style="padding:0;">
-            <div class="glass-card reveal zoom-in" style="padding: 40px 20px; width: 90%; max-width: 600px; position: absolute;">
-                <div style="letter-spacing: 5px; color: var(--plata-oscuro); margin-bottom: 10px; font-weight: 600;">MIS XV AÑOS</div>
-                <h1>Quetzali</h1>
-                <p style="font-weight: 600; margin-top: 15px; letter-spacing: 2px; color: var(--texto-oscuro);">23 DE OCTUBRE DE 2026</p>
+            <div class="hero-text-wrapper reveal zoom-in">
+                <div class="hero-subtitle">MIS XV AÑOS</div>
+                <h1 class="hero-title">Quetzali</h1>
+                <p class="hero-date">23 DE OCTUBRE DE 2026</p>
             </div>
-            <!-- Se asume que fondo.jpg es la imagen general, pero si quieres Foto 1 flotando aquí: -->
-            <img src="assets/1.jpg" class="scattered-img" onclick="openLightbox(this.src)" style="display:none;" alt="Foto 1 oculta en hero si no se usa">
+            <img src="assets/1.jpg" class="scattered-img" onclick="openLightbox(this.src)" style="display:none;" alt="Foto 1 oculta en hero si no se usa directamente en pantalla">
         </section>
 
         <!-- CONTADOR Y WIDGET DE CALENDARIO -->
         <section class="reveal fade-up">
             <h2>Faltan</h2>
+            <!-- Reloj en un solo renglón -->
             <div class="timer-container">
-                <div class="time-box glass-card"><span id="days">00</span><p>Días</p></div>
-                <div class="time-box glass-card"><span id="hours">00</span><p>Hrs</p></div>
-                <div class="time-box glass-card"><span id="minutes">00</span><p>Min</p></div>
-                <div class="time-box glass-card"><span id="seconds">00</span><p>Seg</p></div>
+                <div class="time-box"><span id="days">00</span><p>Días</p></div>
+                <div class="time-box"><span id="hours">00</span><p>Hrs</p></div>
+                <div class="time-box"><span id="minutes">00</span><p>Min</p></div>
+                <div class="time-box"><span id="seconds">00</span><p>Seg</p></div>
             </div>
             
-            <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Mis+XV+A%C3%B1os+Quetzali&dates=20261023T210000Z/20261024T030000Z&details=Acompa%C3%B1anos+a+celebrar+este+d%C3%ADa+tan+especial&location=Nuestra+se%C3%B1ora+de+la+salud" target="_blank" class="btn btn-calendar reveal zoom-in">
-                <i class="fa-regular fa-calendar-plus"></i> Agendar en mi Calendario
+            <!-- Widget de calendario -->
+            <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Mis+XV+A%C3%B1os+Quetzali&dates=20261023T210000Z/20261024T030000Z&details=Acompa%C3%B1anos+a+celebrar+este+d%C3%ADa+tan+especial&location=Nuestra+se%C3%B1ora+de+la+salud" target="_blank" class="widget-calendario reveal zoom-in">
+                <i class="fa-regular fa-calendar-check" style="font-size: 1.4rem;"></i>
+                Agendar en mi Calendario
             </a>
         </section>
 
@@ -447,7 +510,7 @@
             }
         }
 
-        // 2. Lightbox mejorado (pantalla completa)
+        // 2. Lightbox (pantalla completa)
         function openLightbox(src) {
             const lightbox = document.getElementById('lightbox');
             document.getElementById('lightboxImg').src = src;
